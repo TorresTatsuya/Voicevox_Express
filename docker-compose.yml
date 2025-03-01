@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  voicevox:
+    image: "voicevox/voicevox_engine:cpu-latest"
+    container_name: voicevox
+    # ports:
+    #   - "50021:50021"
+    stdin_open: true 
+    tty: true
+    restart: always
+  backend:
+    image: "node:20-alpine"
+    container_name: nodejs
+    working_dir: /home/node/backend
+    environment:
+      - VOICEVOX_URL=http://voicevox:50021
+      - EXPRESS_PORT=8000
+    volumes:
+      - ./backend:/home/node/backend
+    ports:
+      - "8000:8000"
+    tty: true
+    depends_on:
+      - voicevox
+    command: ["node", "index.js"]
+
+networks:
+  mynetwork:
+    driver: bridge
