@@ -25,5 +25,5 @@ services:
     command: sh -c "npm i && node index.js"
 
 networks:
-  mynetwork:
-    driver: bridge
+  default:
+    name: backend
