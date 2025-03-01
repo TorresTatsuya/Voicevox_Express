@@ -22,7 +22,7 @@ services:
     tty: true
     depends_on:
       - voicevox
-    command: ["node", "index.js"]
+    command: sh -c "npm i && node index.js"
 
 networks:
   mynetwork:
